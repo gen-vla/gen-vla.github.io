@@ -1,43 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to Gensis</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9fafc;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+  <meta charset="utf-8">
+  <meta name="description"
+        content="A framework that enhances the generalization of Vision-Language-Action models by preserving pretrained representations.">
+  <meta name="keywords" content="VLA, Vision-Language-Action, Robotics, Generalization">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enhancing Generalization in Vision-Language-Action Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
     }
-    h1 {
-      font-size: 3rem;
-      margin: 0.5em 0;
-      color: #2c3e50;
-    }
-    p {
-      font-size: 1.2rem;
-      margin: 0.2em 0;
-    }
-    footer {
-      position: absolute;
-      bottom: 1rem;
-      font-size: 0.9rem;
-      color: #777;
-    }
-  </style>
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 </head>
 <body>
-  <h1>🚀 Welcome </h1>
-  <p>Your GitHub Pages site is under construction!</p>
-  <footer>
-    Powered by GitHub Pages
-  </footer>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://gen-vla.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Enhancing Generalization in Vision-Language-Action Models by Preserving Pretrained Representations</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Shresth Grover¹*,</span>
+            <span class="author-block">
+              Akshay Gopalkrishnan¹*,</span>
+            <span class="author-block">
+              Bo Ai¹,
+            </span>
+            <span class="author-block">
+              Henrik I. Christensen¹,
+            </span>
+            <span class="author-block">
+              Hao Su¹,²,
+            </span>
+            <span class="author-block">
+              Xuanlin Li²
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">¹UC San Diego,</span>
+            <span class="author-block">²Hillbot</span>
+            <span class="author-block">*Equal contribution</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2509.11417"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://gen-vla.github.io"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-video"></i>
+                  </span>
+                  <span>Project Page</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://gen-vla.github.io"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- You can replace this with a video or an image from the paper. -->
+      <!-- For example, a gif of the robot in action. -->
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%"> -->
+      <!--   <source src="./static/videos/teaser.mp4" type="video/mp4"> -->
+      <!-- </video> -->
+      <h2 class="subtitle has-text-centered">
+        Our framework improves the robustness and generalization of robot manipulation policies by preserving the rich features of pretrained vision-language models.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Vision-language-action (VLA) models finetuned from vision-language models (VLMs) hold the promise of leveraging rich pretrained representations to build generalist robots across diverse tasks and environments. However, direct fine-tuning on robot data often disrupts these representations and limits generalization. We present a framework that better preserves pretrained features while adapting them for robot manipulation.
+          </p>
+          <p>
+            Our approach introduces three components: (i) a dual-encoder design with one frozen vision encoder to retain pretrained features and another trainable for task adaptation, (ii) a string-based action tokenizer that casts continuous actions into character sequences aligned with the model's pretraining domain, and (iii) a co-training strategy that combines robot demonstrations with vision-language datasets emphasizing spatial reasoning and affordances.
+          </p>
+          <p>
+            Evaluations in simulation and on real robot show that our method improves robustness to visual perturbations, generalization to novel instructions and environments, and overall task success compared to baselines.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            To address the challenge of representation degradation when fine-tuning VLMs on robotic data, we introduce a framework with three key designs. First, a dual-encoder architecture with a frozen encoder to preserve robust pretrained visual features and a trainable encoder to adapt to specific robot tasks. Second, a string-based action tokenizer that represents continuous robot actions as character sequences, aligning them with the language model's pretraining and allowing for better reuse of its representations. Finally, a co-training strategy that mixes robotic data with vision-language datasets focused on spatial reasoning and affordances, which helps prevent overfitting and improves generalization.
+          </p>
+        </div>
+        <!-- You can add a figure here, similar to Figure 2 in the paper. -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{grover2025enhancing,
+  title={Enhancing Generalization in Vision-Language-Action Models by Preserving Pretrained Representations},
+  author={Grover, Shresth and Gopalkrishnan, Akshay and Ai, Bo and Christensen, Henrik I. and Su, Hao and Li, Xuanlin},
+  journal={arXiv preprint arXiv:2509.11417},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
