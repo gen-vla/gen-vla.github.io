@@ -157,6 +157,10 @@
   </div>
 </section>
 
+<section class="section">                                                          <div class="container is-max-desktop">                                             <div class="columns is-centered">                                                  <div class="column has-text-centered">                                             <img src="./videos/promo_.gif" alt="Demonstration of the VLA model">           </div>
+    </div>
+  </div>
+</section>
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
@@ -180,30 +184,33 @@
   </div>
 </section>
 
-<!-- GIF Section -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column has-text-centered">
-        <img src="./videos/promo_.gif" alt="Demonstration of the VLA model">
-      </div>
-    </div>
-  </div>
-</section>
-<!--/ GIF Section -->
 
-<!-- Image Section -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column has-text-centered">
          <!-- Note: Most browsers cannot render a PDF file directly in an <img> tag. -->
-         <!-- You may need to convert method.pdf to a PNG or JPG for it to display correctly. -->
-        <img src="./images/figure2_method.png" alt="Method Overview Diagram">
+         <!-- You may need to convert method.pdf to a PNG or JPG for it to display correctly. -->                                                                         <img src="./images/figure2-method.png" alt="Method Overview Diagram">
       </div>
     </div>
   </div>
 </section>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            To address the challenge of representation degradation when fine-tuning VLMs on robotic data, we introduce a framework with three key designs. First, a dual-encoder architecture with a frozen encoder to preserve robust pretrained visual features and a trainable encoder to adapt to specific robot tasks. Second, a string-based action tokenizer that represents continuous robot actions as character sequences, aligning them with the language model's pretraining and allowing for better reuse of its representations. Finally, a co-training strategy that mixes robotic data with vision-language datasets focused on spatial reasoning and affordances, which helps prevent overfitting and improves generalization.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Image Section -->
 <!--/ Image Section -->
 
 <section class="section">
@@ -318,6 +325,18 @@
     </div>
   </div>
 </footer>
-
+<script>
+  // Initialize the carousel for demonstrations
+  document.addEventListener('DOMContentLoaded', function() {
+    bulmaCarousel.attach('#demo-carousel', {
+      slidesToShow: 2,      // Show 2 GIFs at a time
+      slidesToScroll: 2,    // Scroll 2 GIFs at a time
+      loop: true,           // Allow the carousel to loop
+      autoplay: false,      // Do not automatically play
+      navigation: true,     // Show next/prev buttons
+      pagination: true,     // Show pagination dots
+    });
+  });
+</script>
 </body>
 </html>
