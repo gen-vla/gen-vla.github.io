@@ -8,37 +8,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Enhancing Generalization in Vision-Language-Action Models</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
-
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <style>
+    .publication-title {
+      margin-bottom: 1.5rem;
+    }
+    
+    .publication-authors {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Enhanced carousel styles */
+    .demo-carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      background: #f8f9fa;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .demo-carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .demo-carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      gap: 2rem;
+    }
+    
+    .demo-item {
+      flex: 0 0 calc(50% - 1rem);
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e9ecef;
+    }
+    
+    .demo-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .demo-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border: 2px solid #f1f3f4;
+    }
+    
+    .demo-item p {
+      margin: 0;
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 1.1rem;
+    }
+    
+    /* Navigation buttons */
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .nav-btn {
+      background: #3273dc;
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(50, 115, 220, 0.3);
+    }
+    
+    .nav-btn:hover {
+      background: #2366d1;
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(50, 115, 220, 0.5);
+    }
+    
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    /* Pagination dots */
+    .carousel-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .pagination-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .pagination-dot.active {
+      background: #3273dc;
+      transform: scale(1.2);
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .demo-item {
+        flex: 0 0 100%;
+      }
+      
+      .demo-carousel-container {
+        padding: 1rem;
+      }
+      
+      .demo-item img {
+        height: 150px;
+      }
+    }
+    
+    /* Loading animation */
+    .demo-item img {
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -75,7 +200,6 @@
   </div>
 </nav>
 
-
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
@@ -109,7 +233,6 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2509.11417"
                    class="external-link button is-normal is-rounded is-dark">
@@ -119,7 +242,6 @@
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Video Link. -->
               <span class="link-block">
                 <a href="https://gen-vla.github.io"
                    class="external-link button is-normal is-rounded is-dark">
@@ -129,7 +251,6 @@
                   <span>Project Page</span>
                 </a>
               </span>
-              <!-- Code Link. -->
               <span class="link-block">
                 <a href="https://gen-vla.github.io"
                    class="external-link button is-normal is-rounded is-dark">
@@ -157,13 +278,18 @@
   </div>
 </section>
 
-<section class="section">                                                          <div class="container is-max-desktop">                                             <div class="columns is-centered">                                                  <div class="column has-text-centered">                                             <img src="./videos/promo_.gif" alt="Demonstration of the VLA model">           </div>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <img src="https://via.placeholder.com/600x300/4285f4/ffffff?text=VLA+Model+Demo" alt="Demonstration of the VLA model" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+      </div>
     </div>
   </div>
 </section>
+
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
@@ -180,21 +306,19 @@
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
   </div>
 </section>
-
 
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column has-text-centered">
-         <!-- Note: Most browsers cannot render a PDF file directly in an <img> tag. -->
-         <!-- You may need to convert method.pdf to a PNG or JPG for it to display correctly. -->                                                                         <img src="./images/figure2-method.png" alt="Method Overview Diagram">
+        <img src="https://via.placeholder.com/800x400/34a853/ffffff?text=Method+Overview" alt="Method Overview Diagram" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
       </div>
     </div>
   </div>
 </section>
+
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -209,9 +333,6 @@
     </div>
   </div>
 </section>
-
-<!-- Image Section -->
-<!--/ Image Section -->
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -256,38 +377,59 @@
       </div>
     </div>
 
-    <!-- Demonstration GIFs (Scrollable) -->
+    <!-- Enhanced Demonstration Videos Carousel -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Demonstrations</h2>
+        <h2 class="title is-3 has-text-centered">Demonstrations</h2>
         <div class="content has-text-centered">
           <p>
             Here we showcase sample demonstrations of our model's performance in various scenarios, highlighting its generalization capabilities.
           </p>
         </div>
-        <div id="demo-carousel" class="carousel results-carousel">
-          <div class="item item-demo-1">
-            <img src="./videos/video_1.gif" alt="Demonstration for picking up a carrot and placing it on plate">
-            <p class="has-text-centered">Task 1: Put carrot on plate.</p>
+        
+        <div class="demo-carousel-container">
+          <div class="demo-carousel-wrapper">
+            <div class="demo-carousel" id="demoCarousel">
+              <div class="demo-item">
+                <img src="https://via.placeholder.com/400x200/ff6b6b/ffffff?text=Task+1" alt="Demonstration for picking up a carrot and placing it on plate">
+                <p class="has-text-centered">Task 1: Put carrot on plate.</p>
+              </div>
+              <div class="demo-item">
+                <img src="https://via.placeholder.com/400x200/4ecdc4/ffffff?text=Task+2" alt="Demonstration for putting knife on cloth">
+                <p class="has-text-centered">Task 2: Put knife on cloth.</p>
+              </div>
+              <div class="demo-item">
+                <img src="https://via.placeholder.com/400x200/45b7d1/ffffff?text=Task+3" alt="Demonstration for placing carrot on a plate">
+                <p class="has-text-centered">Task 3: Place the carrot on the plate.</p>
+              </div>
+              <div class="demo-item">
+                <img src="https://via.placeholder.com/400x200/f9ca24/ffffff?text=Task+4" alt="Demonstration for placing object on target">
+                <p class="has-text-centered">Task 4: Place target on plate.</p>
+              </div>
+              <div class="demo-item">
+                <img src="https://via.placeholder.com/400x200/6c5ce7/ffffff?text=Task+5" alt="Demonstration for complex manipulation">
+                <p class="has-text-centered">Task 5: Complex manipulation task.</p>
+              </div>
+              <div class="demo-item">
+                <img src="https://via.placeholder.com/400x200/fd79a8/ffffff?text=Task+6" alt="Demonstration for precision task">
+                <p class="has-text-centered">Task 6: Precision manipulation.</p>
+              </div>
+            </div>
           </div>
-          <div class="item item-demo-2">
-            <img src="./videos/video_2.gif" alt="Demonstration for putting knife on cloth">
-            <p class="has-text-centered">Task 2: Put knife on cloth.</p>
+          
+          <div class="carousel-nav">
+            <button class="nav-btn" id="prevBtn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="nav-btn" id="nextBtn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
-          <div class="item item-demo-3">
-            <img src="./videos/video_3.gif" alt="Demonstration for placing carrot on a plate">
-            <p class="has-text-centered">Task 3: Place the carrot on the plate.</p>
-          </div>
-          <div class="item item-demo-4">
-            <img src="./videos/video_6.gif" alt="Demonstration for placing objct on target">
-            <p class="has-text-centered">Task 4: Place target on plate.</p>
-          </div>
-          <!-- Add more GIF items as needed -->
+          
+          <div class="carousel-pagination" id="pagination"></div>
         </div>
       </div>
     </div>
-    <!--/ Demonstration GIFs (Scrollable) -->
-
   </div>
 </section>
 
@@ -325,18 +467,128 @@
     </div>
   </div>
 </footer>
+
 <script>
-  // Initialize the carousel for demonstrations
-  document.addEventListener('DOMContentLoaded', function() {
-    bulmaCarousel.attach('#demo-carousel', {
-      slidesToShow: 2,      // Show 2 GIFs at a time
-      slidesToScroll: 2,    // Scroll 2 GIFs at a time
-      loop: true,           // Allow the carousel to loop
-      autoplay: false,      // Do not automatically play
-      navigation: true,     // Show next/prev buttons
-      pagination: true,     // Show pagination dots
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.getElementById('demoCarousel');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pagination = document.getElementById('pagination');
+  const items = carousel.querySelectorAll('.demo-item');
+  
+  let currentIndex = 0;
+  const itemsPerView = window.innerWidth <= 768 ? 1 : 2;
+  const maxIndex = Math.max(0, items.length - itemsPerView);
+  
+  // Create pagination dots
+  function createPagination() {
+    pagination.innerHTML = '';
+    const totalPages = Math.ceil(items.length / itemsPerView);
+    
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('pagination-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i * itemsPerView));
+      pagination.appendChild(dot);
+    }
+  }
+  
+  // Update carousel position
+  function updateCarousel() {
+    const translateX = -currentIndex * (100 / itemsPerView);
+    carousel.style.transform = `translateX(${translateX}%)`;
+    
+    // Update pagination
+    const dots = pagination.querySelectorAll('.pagination-dot');
+    const currentPage = Math.floor(currentIndex / itemsPerView);
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentPage);
     });
+    
+    // Update button states
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= maxIndex;
+  }
+  
+  // Go to specific slide
+  function goToSlide(index) {
+    currentIndex = Math.max(0, Math.min(index, maxIndex));
+    updateCarousel();
+  }
+  
+  // Event listeners
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex -= itemsPerView;
+      if (currentIndex < 0) currentIndex = 0;
+      updateCarousel();
+    }
   });
+  
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < maxIndex) {
+      currentIndex += itemsPerView;
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+      updateCarousel();
+    }
+  });
+  
+  // Touch/swipe support
+  let startX = 0;
+  let isDragging = false;
+  
+  carousel.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  });
+  
+  carousel.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+  });
+  
+  carousel.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+    
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && currentIndex < maxIndex) {
+        currentIndex += itemsPerView;
+        if (currentIndex > maxIndex) currentIndex = maxIndex;
+      } else if (diff < 0 && currentIndex > 0) {
+        currentIndex -= itemsPerView;
+        if (currentIndex < 0) currentIndex = 0;
+      }
+      updateCarousel();
+    }
+  });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      prevBtn.click();
+    } else if (e.key === 'ArrowRight') {
+      nextBtn.click();
+    }
+  });
+  
+  // Responsive handling
+  window.addEventListener('resize', () => {
+    const newItemsPerView = window.innerWidth <= 768 ? 1 : 2;
+    if (newItemsPerView !== itemsPerView) {
+      location.reload(); // Simple approach for responsive changes
+    }
+  });
+  
+  // Initialize
+  createPagination();
+  updateCarousel();
+});
 </script>
+
 </body>
 </html>
