@@ -8,159 +8,145 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Enhancing Generalization in Vision-Language-Action Models</title>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 
   <style>
-    .publication-title {
-      margin-bottom: 1.5rem;
-    }
-    
-    .publication-authors {
-      margin-bottom: 0.5rem;
-    }
-    
     /* Enhanced carousel styles */
-    .demo-carousel-container {
+    .demo-carousel {
       position: relative;
       overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      background: #f8f9fa;
-      padding: 2rem;
       margin: 2rem 0;
     }
-    
-    .demo-carousel-wrapper {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .demo-carousel {
+
+    .carousel-container {
       display: flex;
-      transition: transform 0.5s ease-in-out;
-      gap: 2rem;
+      transition: transform 0.5s ease;
+      gap: 1rem;
     }
-    
-    .demo-item {
-      flex: 0 0 calc(50% - 1rem);
-      background: white;
+
+    .carousel-item {
+      flex: 0 0 48%;
+      padding: 1rem;
+      background: #f8f9fa;
       border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid #e9ecef;
     }
-    
-    .demo-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    .carousel-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
     }
-    
-    .demo-item img {
+
+    .carousel-item img {
       width: 100%;
       height: 200px;
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 1rem;
-      border: 2px solid #f1f3f4;
     }
-    
-    .demo-item p {
-      margin: 0;
+
+    .carousel-item p {
       font-weight: 600;
-      color: #2c3e50;
-      font-size: 1.1rem;
+      color: #363636;
+      margin: 0;
+      text-align: center;
     }
-    
-    /* Navigation buttons */
+
     .carousel-nav {
       display: flex;
       justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
       gap: 1rem;
-      margin-top: 2rem;
     }
-    
-    .nav-btn {
+
+    .carousel-btn {
       background: #3273dc;
       color: white;
       border: none;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(50, 115, 220, 0.3);
     }
-    
-    .nav-btn:hover {
+
+    .carousel-btn:hover {
       background: #2366d1;
       transform: scale(1.1);
-      box-shadow: 0 4px 15px rgba(50, 115, 220, 0.5);
     }
-    
-    .nav-btn:disabled {
-      background: #ccc;
+
+    .carousel-btn:disabled {
+      background: #dbdbdb;
       cursor: not-allowed;
       transform: none;
-      box-shadow: none;
     }
-    
-    /* Pagination dots */
-    .carousel-pagination {
+
+    .carousel-indicators {
       display: flex;
-      justify-content: center;
       gap: 0.5rem;
-      margin-top: 1rem;
     }
-    
-    .pagination-dot {
+
+    .carousel-dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #ccc;
+      background: #dbdbdb;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-    
-    .pagination-dot.active {
+
+    .carousel-dot.active {
       background: #3273dc;
       transform: scale(1.2);
     }
-    
-    /* Responsive design */
+
+    .carousel-dot:hover {
+      background: #2366d1;
+    }
+
     @media (max-width: 768px) {
-      .demo-item {
+      .carousel-item {
         flex: 0 0 100%;
       }
       
-      .demo-carousel-container {
-        padding: 1rem;
-      }
-      
-      .demo-item img {
+      .carousel-item img {
         height: 150px;
-      }
-    }
-    
-    /* Loading animation */
-    .demo-item img {
-      opacity: 0;
-      animation: fadeIn 0.6s ease forwards;
-    }
-    
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
       }
     }
   </style>
@@ -200,6 +186,7 @@
   </div>
 </nav>
 
+
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
@@ -233,6 +220,7 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
+              <!-- PDF Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2509.11417"
                    class="external-link button is-normal is-rounded is-dark">
@@ -242,6 +230,7 @@
                   <span>arXiv</span>
                 </a>
               </span>
+              <!-- Video Link. -->
               <span class="link-block">
                 <a href="https://gen-vla.github.io"
                    class="external-link button is-normal is-rounded is-dark">
@@ -251,6 +240,7 @@
                   <span>Project Page</span>
                 </a>
               </span>
+              <!-- Code Link. -->
               <span class="link-block">
                 <a href="https://gen-vla.github.io"
                    class="external-link button is-normal is-rounded is-dark">
@@ -278,18 +268,13 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column has-text-centered">
-        <img src="https://via.placeholder.com/600x300/4285f4/ffffff?text=VLA+Model+Demo" alt="Demonstration of the VLA model" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-      </div>
+<section class="section">                                                          <div class="container is-max-desktop">                                             <div class="columns is-centered">                                                  <div class="column has-text-centered">                                             <img src="./videos/promo_.gif" alt="Demonstration of the VLA model">           </div>
     </div>
   </div>
 </section>
-
 <section class="section">
   <div class="container is-max-desktop">
+    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
@@ -306,19 +291,21 @@
         </div>
       </div>
     </div>
+    <!--/ Abstract. -->
   </div>
 </section>
+
 
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column has-text-centered">
-        <img src="https://via.placeholder.com/800x400/34a853/ffffff?text=Method+Overview" alt="Method Overview Diagram" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+         <!-- Note: Most browsers cannot render a PDF file directly in an <img> tag. -->
+         <!-- You may need to convert method.pdf to a PNG or JPG for it to display correctly. -->                                                                         <img src="./images/figure2-method.png" alt="Method Overview Diagram">
       </div>
     </div>
   </div>
 </section>
-
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -333,6 +320,9 @@
     </div>
   </div>
 </section>
+
+<!-- Image Section -->
+<!--/ Image Section -->
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -377,59 +367,54 @@
       </div>
     </div>
 
-    <!-- Enhanced Demonstration Videos Carousel -->
+    <!-- Enhanced Demonstration Carousel -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Demonstrations</h2>
+        <h2 class="title is-3">Demonstrations</h2>
         <div class="content has-text-centered">
           <p>
             Here we showcase sample demonstrations of our model's performance in various scenarios, highlighting its generalization capabilities.
           </p>
         </div>
         
-        <div class="demo-carousel-container">
-          <div class="demo-carousel-wrapper">
-            <div class="demo-carousel" id="demoCarousel">
-              <div class="demo-item">
-                <img src="https://via.placeholder.com/400x200/ff6b6b/ffffff?text=Task+1" alt="Demonstration for picking up a carrot and placing it on plate">
-                <p class="has-text-centered">Task 1: Put carrot on plate.</p>
-              </div>
-              <div class="demo-item">
-                <img src="https://via.placeholder.com/400x200/4ecdc4/ffffff?text=Task+2" alt="Demonstration for putting knife on cloth">
-                <p class="has-text-centered">Task 2: Put knife on cloth.</p>
-              </div>
-              <div class="demo-item">
-                <img src="https://via.placeholder.com/400x200/45b7d1/ffffff?text=Task+3" alt="Demonstration for placing carrot on a plate">
-                <p class="has-text-centered">Task 3: Place the carrot on the plate.</p>
-              </div>
-              <div class="demo-item">
-                <img src="https://via.placeholder.com/400x200/f9ca24/ffffff?text=Task+4" alt="Demonstration for placing object on target">
-                <p class="has-text-centered">Task 4: Place target on plate.</p>
-              </div>
-              <div class="demo-item">
-                <img src="https://via.placeholder.com/400x200/6c5ce7/ffffff?text=Task+5" alt="Demonstration for complex manipulation">
-                <p class="has-text-centered">Task 5: Complex manipulation task.</p>
-              </div>
-              <div class="demo-item">
-                <img src="https://via.placeholder.com/400x200/fd79a8/ffffff?text=Task+6" alt="Demonstration for precision task">
-                <p class="has-text-centered">Task 6: Precision manipulation.</p>
-              </div>
+        <div class="demo-carousel">
+          <div class="carousel-container" id="carousel-container">
+            <div class="carousel-item">
+              <img src="./videos/video_1.gif" alt="Demonstration for picking up a carrot and placing it on plate">
+              <p>Task 1: Put carrot on plate.</p>
+            </div>
+            <div class="carousel-item">
+              <img src="./videos/video_2.gif" alt="Demonstration for putting knife on cloth">
+              <p>Task 2: Put knife on cloth.</p>
+            </div>
+            <div class="carousel-item">
+              <img src="./videos/video_3.gif" alt="Demonstration for placing carrot on a plate">
+              <p>Task 3: Place the carrot on the plate.</p>
+            </div>
+            <div class="carousel-item">
+              <img src="./videos/video_6.gif" alt="Demonstration for placing object on target">
+              <p>Task 4: Place target on plate.</p>
+            </div>
+            <div class="carousel-item">
+              <img src="./videos/video_1.gif" alt="Additional demonstration">
+              <p>Task 5: Complex manipulation task.</p>
+            </div>
+            <div class="carousel-item">
+              <img src="./videos/video_2.gif" alt="Additional demonstration">
+              <p>Task 6: Advanced robotic control.</p>
             </div>
           </div>
           
           <div class="carousel-nav">
-            <button class="nav-btn" id="prevBtn">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="nav-btn" id="nextBtn">
-              <i class="fas fa-chevron-right"></i>
-            </button>
+            <button class="carousel-btn" id="prev-btn">‹</button>
+            <div class="carousel-indicators" id="carousel-indicators"></div>
+            <button class="carousel-btn" id="next-btn">›</button>
           </div>
-          
-          <div class="carousel-pagination" id="pagination"></div>
         </div>
       </div>
     </div>
+    <!--/ Enhanced Demonstration Carousel -->
+
   </div>
 </section>
 
@@ -469,126 +454,130 @@
 </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const carousel = document.getElementById('demoCarousel');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const pagination = document.getElementById('pagination');
-  const items = carousel.querySelectorAll('.demo-item');
-  
-  let currentIndex = 0;
-  const itemsPerView = window.innerWidth <= 768 ? 1 : 2;
-  const maxIndex = Math.max(0, items.length - itemsPerView);
-  
-  // Create pagination dots
-  function createPagination() {
-    pagination.innerHTML = '';
-    const totalPages = Math.ceil(items.length / itemsPerView);
+class DemoCarousel {
+  constructor() {
+    this.container = document.getElementById('carousel-container');
+    this.prevBtn = document.getElementById('prev-btn');
+    this.nextBtn = document.getElementById('next-btn');
+    this.indicators = document.getElementById('carousel-indicators');
+    this.items = this.container.querySelectorAll('.carousel-item');
+    this.currentIndex = 0;
+    this.itemsPerPage = window.innerWidth <= 768 ? 1 : 2;
+    this.totalPages = Math.ceil(this.items.length / this.itemsPerPage);
     
-    for (let i = 0; i < totalPages; i++) {
+    this.init();
+  }
+  
+  init() {
+    this.createIndicators();
+    this.bindEvents();
+    this.updateCarousel();
+    this.updateButtons();
+  }
+  
+  createIndicators() {
+    this.indicators.innerHTML = '';
+    for (let i = 0; i < this.totalPages; i++) {
       const dot = document.createElement('div');
-      dot.classList.add('pagination-dot');
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goToSlide(i * itemsPerView));
-      pagination.appendChild(dot);
+      dot.className = 'carousel-dot';
+      dot.addEventListener('click', () => this.goToPage(i));
+      this.indicators.appendChild(dot);
     }
   }
   
-  // Update carousel position
-  function updateCarousel() {
-    const translateX = -currentIndex * (100 / itemsPerView);
-    carousel.style.transform = `translateX(${translateX}%)`;
+  bindEvents() {
+    this.prevBtn.addEventListener('click', () => this.prevPage());
+    this.nextBtn.addEventListener('click', () => this.nextPage());
     
-    // Update pagination
-    const dots = pagination.querySelectorAll('.pagination-dot');
-    const currentPage = Math.floor(currentIndex / itemsPerView);
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentPage);
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const newItemsPerPage = window.innerWidth <= 768 ? 1 : 2;
+      if (newItemsPerPage !== this.itemsPerPage) {
+        this.itemsPerPage = newItemsPerPage;
+        this.totalPages = Math.ceil(this.items.length / this.itemsPerPage);
+        this.currentIndex = Math.min(this.currentIndex, this.totalPages - 1);
+        this.createIndicators();
+        this.updateCarousel();
+        this.updateButtons();
+      }
     });
     
-    // Update button states
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= maxIndex;
-  }
-  
-  // Go to specific slide
-  function goToSlide(index) {
-    currentIndex = Math.max(0, Math.min(index, maxIndex));
-    updateCarousel();
-  }
-  
-  // Event listeners
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex -= itemsPerView;
-      if (currentIndex < 0) currentIndex = 0;
-      updateCarousel();
-    }
-  });
-  
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex < maxIndex) {
-      currentIndex += itemsPerView;
-      if (currentIndex > maxIndex) currentIndex = maxIndex;
-      updateCarousel();
-    }
-  });
-  
-  // Touch/swipe support
-  let startX = 0;
-  let isDragging = false;
-  
-  carousel.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-  });
-  
-  carousel.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-  });
-  
-  carousel.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
+    // Touch/swipe support
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
     
-    const endX = e.changedTouches[0].clientX;
-    const diff = startX - endX;
+    this.container.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
     
-    if (Math.abs(diff) > 50) {
-      if (diff > 0 && currentIndex < maxIndex) {
-        currentIndex += itemsPerView;
-        if (currentIndex > maxIndex) currentIndex = maxIndex;
-      } else if (diff < 0 && currentIndex > 0) {
-        currentIndex -= itemsPerView;
-        if (currentIndex < 0) currentIndex = 0;
+    this.container.addEventListener('touchmove', (e) => {
+      currentX = e.touches[0].clientX;
+      currentY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    this.container.addEventListener('touchend', () => {
+      const diffX = startX - currentX;
+      const diffY = startY - currentY;
+      
+      // Only register horizontal swipes
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          this.nextPage();
+        } else {
+          this.prevPage();
+        }
       }
-      updateCarousel();
-    }
-  });
+    }, { passive: true });
+  }
   
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      prevBtn.click();
-    } else if (e.key === 'ArrowRight') {
-      nextBtn.click();
-    }
-  });
+  updateCarousel() {
+    const translateX = -this.currentIndex * 100;
+    this.container.style.transform = `translateX(${translateX}%)`;
+    
+    // Update indicators
+    const dots = this.indicators.querySelectorAll('.carousel-dot');
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === this.currentIndex);
+    });
+  }
   
-  // Responsive handling
-  window.addEventListener('resize', () => {
-    const newItemsPerView = window.innerWidth <= 768 ? 1 : 2;
-    if (newItemsPerView !== itemsPerView) {
-      location.reload(); // Simple approach for responsive changes
-    }
-  });
+  updateButtons() {
+    this.prevBtn.disabled = this.currentIndex === 0;
+    this.nextBtn.disabled = this.currentIndex === this.totalPages - 1;
+  }
   
-  // Initialize
-  createPagination();
-  updateCarousel();
+  prevPage() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.updateCarousel();
+      this.updateButtons();
+    }
+  }
+  
+  nextPage() {
+    if (this.currentIndex < this.totalPages - 1) {
+      this.currentIndex++;
+      this.updateCarousel();
+      this.updateButtons();
+    }
+  }
+  
+  goToPage(index) {
+    if (index >= 0 && index < this.totalPages) {
+      this.currentIndex = index;
+      this.updateCarousel();
+      this.updateButtons();
+    }
+  }
+}
+
+// Initialize carousel when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  new DemoCarousel();
 });
 </script>
-
 </body>
 </html>
