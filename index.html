@@ -185,14 +185,26 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column has-text-centered">
-        <!-- Make sure the path to your GIF is correct. -->
-        <!-- This example assumes your GIF is in a 'videos' folder within a 'static' folder. -->
-        <img src="./videos/promo_.gif" alt="Video">
+        <img src="./videos/promp_.gif" alt="Demonstration of the VLA model">
       </div>
     </div>
   </div>
 </section>
 <!--/ GIF Section -->
+
+<!-- Image Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+         <!-- Note: Most browsers cannot render a PDF file directly in an <img> tag. -->
+         <!-- You may need to convert method.pdf to a PNG or JPG for it to display correctly. -->
+        <img src="./images/figure2-method.png" alt="Method Overview Diagram">
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Image Section -->
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -204,7 +216,6 @@
             To address the challenge of representation degradation when fine-tuning VLMs on robotic data, we introduce a framework with three key designs. First, a dual-encoder architecture with a frozen encoder to preserve robust pretrained visual features and a trainable encoder to adapt to specific robot tasks. Second, a string-based action tokenizer that represents continuous robot actions as character sequences, aligning them with the language model's pretraining and allowing for better reuse of its representations. Finally, a co-training strategy that mixes robotic data with vision-language datasets focused on spatial reasoning and affordances, which helps prevent overfitting and improves generalization.
           </p>
         </div>
-        <!-- You can add a figure here, similar to Figure 2 in the paper. -->
       </div>
     </div>
   </div>
@@ -213,14 +224,11 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@misc{grover2025enhancinggeneralizationvisionlanguageactionmodels,
-      title={Enhancing Generalization in Vision-Language-Action Models by Preserving Pretrained Representations}, 
-      author={Shresth Grover and Akshay Gopalkrishnan and Bo Ai and Henrik I. Christensen and Hao Su and Xuanlin Li},
-      year={2025},
-      eprint={2509.11417},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2509.11417}, 
+    <pre><code>@article{grover2025enhancing,
+  title={Enhancing Generalization in Vision-Language-Action Models by Preserving Pretrained Representations},
+  author={Grover, Shresth and Gopalkrishnan, Akshay and Ai, Bo and Christensen, Henrik I. and Su, Hao and Li, Xuanlin},
+  journal={arXiv preprint arXiv:2509.11417},
+  year={2025}
 }</code></pre>
   </div>
 </section>
