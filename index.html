@@ -269,12 +269,12 @@
   </div>
 </section>
 
-<section class="section">                                                          <div class="container is-max-desktop">                                             <div class="columns is-centered">                                                  <div class="column has-text-centered">                                           
-	<video autoplay loop muted playsinline width="640" height="360">
+<section class="section">                                                          <div class="container is-max-desktop">                                             <div class="columns is-centered">                                                  <div class="column has-text-centered">                                     
+        <video autoplay loop muted playsinline width="640" height="360">
           <source src="./videos/promo_video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-	</div>
+        </div>
     </div>
   </div>
 </section>
@@ -336,7 +336,7 @@
         </p>
       </div>
     </div>
-    
+
     <!-- Generalization Three Plots -->
     <div class="columns is-centered is-vcentered">
         <div class="column is-one-third has-text-centered">
@@ -363,14 +363,12 @@
 
 
     <!-- Real World -->
-    <div class="columns is-centered">
-        <div class="column is-full-width has-text-centered">
-            <img src="./images/real_perf.png" alt="Qualitative results of robot picking knife and carrot">
-            <p class="is-size-7"><em>Real World Performance.</em></p>
-        </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-full-width">
+    <div class="columns is-centered is-vcentered">
+      <div class="column is-6">
+        <img src="./images/real_perf.png" alt="Qualitative results of robot picking knife and carrot">
+        <p class="is-size-7 has-text-centered"><em>Real World Performance.</em></p>
+      </div>
+      <div class="column is-6">
         <h3 class="title is-4 has-text-centered">Robust Performance in the Real World</h3>
         <p class="has-text-justified">
           In real-world tests, our models consistently outperform baselines, especially in the presence of distracting objects. While baseline models often get confused by distractors (e.g., picking a carrot instead of a knife), our model demonstrates a more robust understanding of the task, successfully completing the instructed action.
@@ -478,7 +476,7 @@ class DemoCarousel {
     this.indicators = document.getElementById('carousel-indicators');
     this.items = this.container.querySelectorAll('.carousel-item');
     this.currentIndex = 0;
-    
+
     this.init();
   }
 
@@ -555,9 +553,9 @@ class DemoCarousel {
     const itemWidthPercentage = 100 / this.items.length;
     const containerWidthPercentage = itemWidthPercentage * this.itemsPerPage;
     const offset = this.currentIndex * (100 / this.totalPages);
-    
+
     this.container.style.transform = `translateX(-${offset}%)`;
-    
+
     const dots = this.indicators.querySelectorAll('.carousel-dot');
     dots.forEach((dot, index) => {
       dot.classList.toggle('active', index === this.currentIndex);
