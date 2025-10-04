@@ -316,61 +316,73 @@
     <h2 class="title is-3 has-text-centered">Key Findings & Results</h2>
 
     <!-- Visual Representation -->
-    <div class="columns is-vcentered">
-      <div class="column">
-        <h3 class="title is-4">Preserving Visual Representations</h3>
-        <p>
+    <div class="columns is-centered">
+        <div class="column is-two-thirds has-text-centered">
+            <img src="./images/figure4_tsne_placeholder.png" alt="t-SNE visualization of vision encoder features">
+            <p class="is-size-7"><em>t-SNE visualization shows our method (right) preserves feature quality compared to the baseline (middle).</em></p>
+        </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Preserving Visual Representations</h3>
+        <p class="has-text-justified">
           Directly finetuning on robot data causes "representation collapse," where the model loses the rich semantic structure of its pretrained features. Our method (OpenVLA+) maintains well-separated and tight class clusters, indicating better preservation of visual understanding. This leads to higher performance on downstream tasks.
         </p>
-      </div>
-      <div class="column has-text-centered">
-        <img src="./images/figure4_tsne_placeholder.png" alt="t-SNE visualization of vision encoder features">
-        <p class="is-size-7"><em>t-SNE visualization shows our method (right) preserves feature quality compared to the baseline (middle).</em></p>
       </div>
     </div>
 
     <!-- Reasoning Capabilities -->
-    <div class="columns is-vcentered is-reversed">
-      <div class="column">
-        <h3 class="title is-4">Retaining Reasoning Capabilities</h3>
-        <p>
+     <div class="columns is-centered">
+        <div class="column is-half has-text-centered">
+            <img src="./images/figure5_vqa_placeholder.png" alt="Radar chart of VQA benchmark performance">
+            <p class="is-size-7"><em>Our models (solid lines) significantly outperform baselines (dashed lines) on five VQA benchmarks.</em></p>
+        </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Retaining Reasoning Capabilities</h3>
+        <p class="has-text-justified">
           Standard VLA finetuning harms the model's ability to perform general visual reasoning. Our training recipe allows the model to retain significantly higher performance on standard VQA benchmarks, demonstrating that it doesn't just learn robotic actions but also preserves its core reasoning abilities.
         </p>
       </div>
-      <div class="column has-text-centered">
-        <img src="./images/figure5_vqa_placeholder.png" alt="Radar chart of VQA benchmark performance">
-        <p class="is-size-7"><em>Our models (solid lines) significantly outperform baselines (dashed lines) on five VQA benchmarks.</em></p>
-      </div>
     </div>
-
-    <!-- Generalization -->
-    <div class="columns is-vcentered">
-      <div class="column">
-        <h3 class="title is-4">Improving Generalization and Robustness</h3>
-        <p>
+    
+    <!-- Generalization Side-by-Side -->
+    <div class="columns is-centered is-vcentered">
+        <div class="column has-text-centered">
+            <img src="./images/figure1_robustness_placeholder_left.png" alt="Bar chart showing visual robustness">
+            <p class="is-size-7"><em>Visual Robustness: Higher success under visual variations (OOD).</em></p>
+        </div>
+        <div class="column has-text-centered">
+            <img src="./images/figure1_robustness_placeholder_right.png" alt="Bar chart showing language robustness">
+             <p class="is-size-7"><em>Language Robustness: Higher success with paraphrased instructions.</em></p>
+        </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Improving Generalization and Robustness</h3>
+        <p class="has-text-justified">
           A key challenge for robots is generalizing to novel scenes and instructions. Baseline models show a significant drop in performance when backgrounds change or instructions are paraphrased. Our approach demonstrates substantially stronger generalization, maintaining high success rates even with out-of-distribution (OOD) visual and language inputs.
         </p>
       </div>
-      <div class="column has-text-centered">
-        <img src="./images/figure1_robustness_placeholder.png" alt="Bar charts showing robustness to visual and language changes">
-        <p class="is-size-7"><em>Our models achieve higher success rates under visual variations (OOD) and paraphrased instructions.</em></p>
-      </div>
     </div>
 
+
     <!-- Real World -->
-    <div class="columns is-vcentered is-reversed">
-      <div class="column">
-        <h3 class="title is-4">Robust Performance in the Real World</h3>
-        <p>
+    <div class="columns is-centered">
+        <div class="column is-full-width has-text-centered">
+            <img src="./images/figure6_realworld_placeholder.png" alt="Qualitative results of robot picking knife and carrot">
+            <p class="is-size-7"><em>Our model (OpenVLA+) correctly picks the knife, while the baseline fails by picking the carrot distractor.</em></p>
+        </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Robust Performance in the Real World</h3>
+        <p class="has-text-justified">
           In real-world tests, our models consistently outperform baselines, especially in the presence of distracting objects. While baseline models often get confused by distractors (e.g., picking a carrot instead of a knife), our model demonstrates a more robust understanding of the task, successfully completing the instructed action.
         </p>
       </div>
-      <div class="column has-text-centered">
-        <img src="./images/figure6_realworld_placeholder.png" alt="Qualitative results of robot picking knife and carrot">
-        <p class="is-size-7"><em>Our model (OpenVLA+) correctly picks the knife, while the baseline fails by picking the carrot distractor.</em></p>
-      </div>
     </div>
-
   </div>
 </section>
 
@@ -379,7 +391,7 @@
     <!-- Enhanced Demonstration Carousel -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Demonstrations</h2>
+        <h2 class="title is-3 has-text-centered">Demonstrations</h2>
         <div class="content has-text-centered">
           <p>
             Here we showcase sample demonstrations of our model's performance in various scenarios, highlighting its generalization capabilities.
@@ -490,6 +502,7 @@ class DemoCarousel {
   }
 
   createIndicators() {
+    if (!this.indicators) return;
     this.indicators.innerHTML = '';
     for (let i = 0; i < this.totalPages; i++) {
       const dot = document.createElement('div');
@@ -500,6 +513,7 @@ class DemoCarousel {
   }
 
   bindEvents() {
+    if (!this.prevBtn || !this.nextBtn) return;
     this.prevBtn.addEventListener('click', () => this.prevPage());
     this.nextBtn.addEventListener('click', () => this.nextPage());
 
@@ -544,10 +558,11 @@ class DemoCarousel {
   }
 
   updateCarousel() {
-    const itemWidth = 100 / this.itemsPerPage;
-    const translateX = -this.currentIndex * 100;
-    // Adjust the container so it shows itemsPerPage number of items
-    this.container.style.transform = `translateX(-${this.currentIndex * itemWidth * this.itemsPerPage}%)`;
+    const itemWidthPercentage = 100 / this.items.length;
+    const containerWidthPercentage = itemWidthPercentage * this.itemsPerPage;
+    const offset = this.currentIndex * (100 / this.totalPages);
+    
+    this.container.style.transform = `translateX(-${offset}%)`;
     
     const dots = this.indicators.querySelectorAll('.carousel-dot');
     dots.forEach((dot, index) => {
@@ -556,6 +571,7 @@ class DemoCarousel {
   }
 
   updateButtons() {
+    if (!this.prevBtn || !this.nextBtn) return;
     this.prevBtn.disabled = this.currentIndex === 0;
     this.nextBtn.disabled = this.currentIndex === this.totalPages - 1;
   }
