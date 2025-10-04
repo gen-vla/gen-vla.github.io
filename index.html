@@ -144,7 +144,7 @@
       .carousel-item {
         flex: 0 0 100%;
       }
-      
+
       .carousel-item img {
         height: 150px;
       }
@@ -195,10 +195,10 @@
           <h1 class="title is-1 publication-title">Enhancing Generalization in Vision-Language-Action Models by Preserving Pretrained Representations</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-		    <a href="https://shroglck.github.io/" class="author-link">Shresth Grover</a>¹*,
-	    </span>
+                    <a href="https://shroglck.github.io/" class="author-link">Shresth Grover</a>¹*,
+            </span>
             <span class="author-block">
-		    <a href="https://akshaygopalkr.github.io/" class="author-link">Akshay Gopalkrishnan</a>¹*,</span>
+                    <a href="https://akshaygopalkr.github.io/" class="author-link">Akshay Gopalkrishnan</a>¹*,</span>
             <span class="author-block">
               <a href="https://albertboai.com" class="author-link">Bo Ai</a>¹,
             </span>
@@ -206,10 +206,10 @@
               <a href="http://hichristensen.net/" class="author-link">Henrik I. Christensen</a>¹,
             </span>
             <span class="author-block">
-		        <a href="https://cseweb.ucsd.edu/~haosu/index.html" class="author-link">Hao Su</a>¹²,
+                        <a href="https://cseweb.ucsd.edu/~haosu/index.html" class="author-link">Hao Su</a>¹²,
             </span>
             <span class="author-block">
-		     <a href="https://xuanlinli17.github.io/" class="author-link">Xuanlin Li</a>²
+                     <a href="https://xuanlinli17.github.io/" class="author-link">Xuanlin Li</a>²
             </span>
           </div>
 
@@ -281,13 +281,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Vision-language-action (VLA) models finetuned from vision-language models (VLMs) hold the promise of leveraging rich pretrained representations to build generalist robots across diverse tasks and environments. However, direct fine-tuning on robot data often disrupts these representations and limits generalization. We present a framework that better preserves pretrained features while adapting them for robot manipulation.
-          </p>
-          <p>
-            Our approach introduces three components: (i) a dual-encoder design with one frozen vision encoder to retain pretrained features and another trainable for task adaptation, (ii) a string-based action tokenizer that casts continuous actions into character sequences aligned with the model's pretraining domain, and (iii) a co-training strategy that combines robot demonstrations with vision-language datasets emphasizing spatial reasoning and affordances.
-          </p>
-          <p>
-            Evaluations in simulation and on real robot show that our method improves robustness to visual perturbations, generalization to novel instructions and environments, and overall task success compared to baselines.
+            Vision-language-action (VLA) models, finetuned from powerful pretrained vision-language models (VLMs), promise to create generalist robots. However, this finetuning process often degrades the very representations that make them powerful, limiting generalization. We propose a framework that preserves these pretrained features while adapting them for robot manipulation. Our method introduces a dual-encoder design to retain features, a string-based action tokenizer to align actions with language, and a co-training strategy to balance robot and vision-language data. Our evaluations show significant improvements in robustness, generalization, and overall task success.
           </p>
         </div>
       </div>
@@ -301,20 +295,15 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column has-text-centered">
-         <!-- Note: Most browsers cannot render a PDF file directly in an <img> tag. -->
-         <!-- You may need to convert method.pdf to a PNG or JPG for it to display correctly. -->                                                                         <img src="./images/figure2-method.png" alt="Method Overview Diagram">
+         <img src="./images/figure2-method.png" alt="Method Overview Diagram">
       </div>
     </div>
-  </div>
-</section>
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
+      <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Method Overview</h2>
+        <h2 class="title is-3 has-text-centered">Method</h2>
         <div class="content has-text-justified">
           <p>
-            To address the challenge of representation degradation when fine-tuning VLMs on robotic data, we introduce a framework with three key designs. First, a dual-encoder architecture with a frozen encoder to preserve robust pretrained visual features and a trainable encoder to adapt to specific robot tasks. Second, a string-based action tokenizer that represents continuous robot actions as character sequences, aligning them with the language model's pretraining and allowing for better reuse of its representations. Finally, a co-training strategy that mixes robotic data with vision-language datasets focused on spatial reasoning and affordances, which helps prevent overfitting and improves generalization.
+            Our framework is built on three key ideas to prevent representation degradation. <strong>(1) Partially-Frozen Visual Encoders:</strong> We use two encoders—one frozen to preserve robust, pretrained VLM features and one trainable to adapt to the specific robot task. <strong>(2) String-Based Action Tokenizer:</strong> We represent continuous robot actions as strings, unifying them with the text-based pretraining of the language model. <strong>(3) Co-Training Strategy:</strong> We mix robot demonstration data with vision-language datasets that emphasize spatial reasoning, preventing the model from overfitting to robot-specific data and enhancing its generalization capabilities.
           </p>
         </div>
       </div>
@@ -322,52 +311,71 @@
   </div>
 </section>
 
-<!-- Image Section -->
-<!--/ Image Section -->
-
 <section class="section">
   <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Evaluation</h2>
-        <div class="content has-text-justified">
-          <p>
-            We evaluate our approach in both simulation and real-world settings to assess its effectiveness in improving generalization and robustness.
-          </p>
-          <h3 class="title is-4">Simulation Experiments</h3>
-          <p>
-            In simulation, we utilize the SimplerEnv benchmark to conduct controlled evaluations. We assess performance under two conditions:
-          </p>
-          <ul>
-            <li><strong>Visual Matching (In-Distribution):</strong> This setup uses visuals that closely match the training data, serving as a baseline for performance on familiar environments.</li>
-            <li><strong>Visual Variant Aggregation (Out-of-Distribution):</strong> This setup introduces variations in backgrounds, lighting, table textures, distractor objects, and camera poses, testing the model's generalization capabilities to unseen conditions.</li>
-          </ul>
-          <p>
-            We also analyze performance under varying levels of robustness to:
-          </p>
-          <ul>
-            <li><strong>Visual Robustness:</strong> Tested using background masking and visual variant aggregation to evaluate sensitivity to visual changes.</li>
-            <li><strong>Language Robustness:</strong> Assessed by using synonymous instructions (generated by GPT-4) to test zero-shot generalization to paraphrased commands.</li>
-          </ul>
-          <p>
-            Results show significant improvements in task success rates and robustness compared to baseline VLA models. Our method demonstrates better performance across diverse tasks, especially when faced with out-of-distribution visuals and varied language instructions.
-          </p>
+    <h2 class="title is-3 has-text-centered">Key Findings & Results</h2>
 
-          <h3 class="title is-4">Real-World Evaluation</h3>
-          <p>
-            To validate our findings in a practical setting, we deploy our models on the ViperX 300s robot, fine-tuned on the Bridge dataset. We evaluate performance with:
-          </p>
-          <ul>
-            <li><strong>In-distribution and Out-of-distribution instructions:</strong> To assess generalization to new task commands.</li>
-            <li><strong>Unseen distractors:</strong> Introducing irrelevant objects in the scene to test the robustness of the learned policies.</li>
-          </ul>
-          <p>
-            Our real-world experiments consistently show that our approach outperforms baseline VLAs. The models demonstrate a more robust understanding of tasks, successfully completing goal-conditioned actions even in the presence of semantically or spatially similar distractors, and achieving substantially better performance.
-          </p>
-        </div>
+    <!-- Visual Representation -->
+    <div class="columns is-vcentered">
+      <div class="column">
+        <h3 class="title is-4">Preserving Visual Representations</h3>
+        <p>
+          Directly finetuning on robot data causes "representation collapse," where the model loses the rich semantic structure of its pretrained features. Our method (OpenVLA+) maintains well-separated and tight class clusters, indicating better preservation of visual understanding. This leads to higher performance on downstream tasks.
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="./images/figure4_tsne_placeholder.png" alt="t-SNE visualization of vision encoder features">
+        <p class="is-size-7"><em>t-SNE visualization shows our method (right) preserves feature quality compared to the baseline (middle).</em></p>
       </div>
     </div>
 
+    <!-- Reasoning Capabilities -->
+    <div class="columns is-vcentered is-reversed">
+      <div class="column">
+        <h3 class="title is-4">Retaining Reasoning Capabilities</h3>
+        <p>
+          Standard VLA finetuning harms the model's ability to perform general visual reasoning. Our training recipe allows the model to retain significantly higher performance on standard VQA benchmarks, demonstrating that it doesn't just learn robotic actions but also preserves its core reasoning abilities.
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="./images/figure5_vqa_placeholder.png" alt="Radar chart of VQA benchmark performance">
+        <p class="is-size-7"><em>Our models (solid lines) significantly outperform baselines (dashed lines) on five VQA benchmarks.</em></p>
+      </div>
+    </div>
+
+    <!-- Generalization -->
+    <div class="columns is-vcentered">
+      <div class="column">
+        <h3 class="title is-4">Improving Generalization and Robustness</h3>
+        <p>
+          A key challenge for robots is generalizing to novel scenes and instructions. Baseline models show a significant drop in performance when backgrounds change or instructions are paraphrased. Our approach demonstrates substantially stronger generalization, maintaining high success rates even with out-of-distribution (OOD) visual and language inputs.
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="./images/figure1_robustness_placeholder.png" alt="Bar charts showing robustness to visual and language changes">
+        <p class="is-size-7"><em>Our models achieve higher success rates under visual variations (OOD) and paraphrased instructions.</em></p>
+      </div>
+    </div>
+
+    <!-- Real World -->
+    <div class="columns is-vcentered is-reversed">
+      <div class="column">
+        <h3 class="title is-4">Robust Performance in the Real World</h3>
+        <p>
+          In real-world tests, our models consistently outperform baselines, especially in the presence of distracting objects. While baseline models often get confused by distractors (e.g., picking a carrot instead of a knife), our model demonstrates a more robust understanding of the task, successfully completing the instructed action.
+        </p>
+      </div>
+      <div class="column has-text-centered">
+        <img src="./images/figure6_realworld_placeholder.png" alt="Qualitative results of robot picking knife and carrot">
+        <p class="is-size-7"><em>Our model (OpenVLA+) correctly picks the knife, while the baseline fails by picking the carrot distractor.</em></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
     <!-- Enhanced Demonstration Carousel -->
     <div class="columns is-centered">
       <div class="column is-full-width">
@@ -377,7 +385,7 @@
             Here we showcase sample demonstrations of our model's performance in various scenarios, highlighting its generalization capabilities.
           </p>
         </div>
-        
+
         <div class="demo-carousel">
           <div class="carousel-container" id="carousel-container">
             <div class="carousel-item">
@@ -405,7 +413,7 @@
               <p>Task 6: Put carrot on yellow plate.</p>
             </div>
           </div>
-          
+
           <div class="carousel-nav">
             <button class="carousel-btn" id="prev-btn">‹</button>
             <div class="carousel-indicators" id="carousel-indicators"></div>
@@ -458,24 +466,29 @@
 class DemoCarousel {
   constructor() {
     this.container = document.getElementById('carousel-container');
+    if (!this.container) return; // Exit if carousel doesn't exist
     this.prevBtn = document.getElementById('prev-btn');
     this.nextBtn = document.getElementById('next-btn');
     this.indicators = document.getElementById('carousel-indicators');
     this.items = this.container.querySelectorAll('.carousel-item');
     this.currentIndex = 0;
-    this.itemsPerPage = window.innerWidth <= 768 ? 1 : 2;
-    this.totalPages = Math.ceil(this.items.length / this.itemsPerPage);
     
     this.init();
   }
-  
+
   init() {
+    this.updateItemsPerPage();
     this.createIndicators();
     this.bindEvents();
     this.updateCarousel();
     this.updateButtons();
   }
-  
+
+  updateItemsPerPage() {
+      this.itemsPerPage = window.innerWidth <= 768 ? 1 : 2;
+      this.totalPages = Math.ceil(this.items.length / this.itemsPerPage);
+  }
+
   createIndicators() {
     this.indicators.innerHTML = '';
     for (let i = 0; i < this.totalPages; i++) {
@@ -485,44 +498,40 @@ class DemoCarousel {
       this.indicators.appendChild(dot);
     }
   }
-  
+
   bindEvents() {
     this.prevBtn.addEventListener('click', () => this.prevPage());
     this.nextBtn.addEventListener('click', () => this.nextPage());
-    
+
     // Handle window resize
     window.addEventListener('resize', () => {
-      const newItemsPerPage = window.innerWidth <= 768 ? 1 : 2;
-      if (newItemsPerPage !== this.itemsPerPage) {
-        this.itemsPerPage = newItemsPerPage;
-        this.totalPages = Math.ceil(this.items.length / this.itemsPerPage);
-        this.currentIndex = Math.min(this.currentIndex, this.totalPages - 1);
-        this.createIndicators();
-        this.updateCarousel();
-        this.updateButtons();
-      }
+      this.updateItemsPerPage();
+      this.currentIndex = Math.min(this.currentIndex, this.totalPages - 1);
+      this.createIndicators();
+      this.updateCarousel();
+      this.updateButtons();
     });
-    
+
     // Touch/swipe support
     let startX = 0;
     let startY = 0;
     let currentX = 0;
     let currentY = 0;
-    
+
     this.container.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
     }, { passive: true });
-    
+
     this.container.addEventListener('touchmove', (e) => {
       currentX = e.touches[0].clientX;
       currentY = e.touches[0].clientY;
     }, { passive: true });
-    
+
     this.container.addEventListener('touchend', () => {
       const diffX = startX - currentX;
       const diffY = startY - currentY;
-      
+
       // Only register horizontal swipes
       if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
         if (diffX > 0) {
@@ -533,23 +542,24 @@ class DemoCarousel {
       }
     }, { passive: true });
   }
-  
+
   updateCarousel() {
+    const itemWidth = 100 / this.itemsPerPage;
     const translateX = -this.currentIndex * 100;
-    this.container.style.transform = `translateX(${translateX}%)`;
+    // Adjust the container so it shows itemsPerPage number of items
+    this.container.style.transform = `translateX(-${this.currentIndex * itemWidth * this.itemsPerPage}%)`;
     
-    // Update indicators
     const dots = this.indicators.querySelectorAll('.carousel-dot');
     dots.forEach((dot, index) => {
       dot.classList.toggle('active', index === this.currentIndex);
     });
   }
-  
+
   updateButtons() {
     this.prevBtn.disabled = this.currentIndex === 0;
     this.nextBtn.disabled = this.currentIndex === this.totalPages - 1;
   }
-  
+
   prevPage() {
     if (this.currentIndex > 0) {
       this.currentIndex--;
@@ -557,7 +567,7 @@ class DemoCarousel {
       this.updateButtons();
     }
   }
-  
+
   nextPage() {
     if (this.currentIndex < this.totalPages - 1) {
       this.currentIndex++;
@@ -565,7 +575,7 @@ class DemoCarousel {
       this.updateButtons();
     }
   }
-  
+
   goToPage(index) {
     if (index >= 0 && index < this.totalPages) {
       this.currentIndex = index;
