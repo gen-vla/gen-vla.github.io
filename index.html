@@ -41,6 +41,37 @@
   <script src="./static/js/index.js"></script>
 
   <style>
+    /* Video container with progress bar */
+    .video-container {
+      position: relative;
+      display: inline-block;
+      width: 640px;
+      max-width: 100%;
+    }
+
+    .video-container video {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .video-progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+    }
+
+    .video-progress-fill {
+      height: 100%;
+      background-color: #3273dc;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
     /* Enhanced carousel styles */
     .demo-carousel {
       position: relative;
@@ -236,10 +267,15 @@
 </section>
 
 <section class="section">                                                          <div class="container is-max-desktop">                                             <div class="columns is-centered">                                                  <div class="column has-text-centered">                                     
-        <video autoplay loop muted playsinline width="640" height="360">
-          <source src="./videos/vla_promo.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <div class="video-container">
+          <video id="promo-video" autoplay loop muted playsinline width="640" height="360">
+            <source src="./videos/vla_promo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-progress-bar" id="progress-bar">
+            <div class="video-progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
         </div>
     </div>
   </div>
@@ -266,7 +302,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column has-text-centered">
-         <img src="./images/figure_method_2.png" alt="Method Overview Diagram">
+         <img src="./images/figure2-method.png" alt="Method Overview Diagram">
       </div>
     </div>
       <div class="columns is-centered">
@@ -286,22 +322,6 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Key Findings & Results</h2>
 
-
-    <!-- Reasoning Capabilities -->
-     <div class="columns is-centered">
-        <div class="column is-half has-text-centered">
-            <img src="./images/vlm_benchmark_results.png" alt="Radar chart of VQA benchmark performance">
-            <p class="is-size-7"><em>Our models (solid lines) significantly outperform baselines (dashed lines) on five VQA benchmarks.</em></p>
-        </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h3 class="title is-4 has-text-centered">Retaining Reasoning Capabilities</h3>
-        <p class="has-text-justified">
-          Standard VLA finetuning harms the model's ability to perform general visual reasoning. Our training recipe allows the model to retain significantly higher performance on standard VQA benchmarks, demonstrating that it doesn't just learn robotic actions but also preserves its core reasoning abilities.
-        </p>
-      </div>
-    </div>
 
     <!-- Generalization Three Plots -->
     <div class="columns is-centered is-vcentered">
@@ -328,16 +348,38 @@
     </div>
 
 
-    <!-- Real World -->
+    <!-- Real World and VQA Performance -->
     <div class="columns is-centered is-vcentered">
       <div class="column is-6">
         <img src="./images/real_perf.png" alt="Qualitative results of robot picking knife and carrot">
         <p class="is-size-7 has-text-centered"><em>Real World Performance.</em></p>
       </div>
       <div class="column is-6">
-        <h3 class="title is-4 has-text-centered">Robust Performance in the Real World</h3>
+        <img src="./images/vlm_benchmark_results.png" alt="Radar chart of VQA benchmark performance">
+        <p class="is-size-7 has-text-centered"><em>VQA Benchmark Performance.</em></p>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Robust Real-World Performance and Retained Reasoning Capabilities</h3>
         <p class="has-text-justified">
-          In real-world tests, our models consistently outperform baselines, especially in the presence of distracting objects. While baseline models often get confused by distractors (e.g., picking a carrot instead of a knife), our model demonstrates a more robust understanding of the task, successfully completing the instructed action.
+          In real-world tests, our models consistently outperform baselines, especially in the presence of distracting objects. While baseline models often get confused by distractors (e.g., picking a carrot instead of a knife), our model demonstrates a more robust understanding of the task, successfully completing the instructed action. Additionally, standard VLA finetuning harms the model's ability to perform general visual reasoning. Our training recipe allows the model to retain significantly higher performance on standard VQA benchmarks (solid lines vs. dashed lines), demonstrating that it doesn't just learn robotic actions but also preserves its core reasoning abilities.
+        </p>
+      </div>
+    </div>
+
+    <!-- t-SNE Visualization -->
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <img src="./images/tsne.png" alt="t-SNE visualizations comparing feature representations" style="max-width: 100%;">
+        <p class="is-size-7"><em>t-SNE visualizations of vision encoder features on CIFAR-10.</em></p>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Preserving Semantic Structure in Visual Representations</h3>
+        <p class="has-text-justified">
+          We visualize how different training approaches affect the learned visual representations using t-SNE on CIFAR-10. Comparing (i) the original visual backbone from the VLM before VLA training, (ii) after direct VLA fine-tuning on robot data, and (iii) after applying our approaches, we observe that our method yields noticeably tighter and more well-separated class clusters. The numbers in the visualization indicate linear-probe classification performance on CIFAR-10 using the corresponding features. For both OpenVLA and π0 models, our approach leads to better linear-probe performance, indicating superior preservation of semantic structures in pretrained visual representations. This demonstrates that our framework maintains the rich representational capacity of the original vision-language models while adapting them for robotic tasks.
         </p>
       </div>
     </div>
@@ -562,6 +604,27 @@ class DemoCarousel {
 // Initialize carousel when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new DemoCarousel();
+  
+  // Video progress bar functionality
+  const video = document.getElementById('promo-video');
+  const progressBar = document.getElementById('progress-bar');
+  const progressFill = document.getElementById('progress-fill');
+
+  if (video && progressBar && progressFill) {
+    // Update progress bar as video plays
+    video.addEventListener('timeupdate', () => {
+      const progress = (video.currentTime / video.duration) * 100;
+      progressFill.style.width = progress + '%';
+    });
+
+    // Seek video when clicking on progress bar
+    progressBar.addEventListener('click', (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percentage = clickX / rect.width;
+      video.currentTime = percentage * video.duration;
+    });
+  }
 });
 </script>
 </body>
