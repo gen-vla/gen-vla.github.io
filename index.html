@@ -266,7 +266,10 @@
   </div>
 </section>
 
-<section class="section">                                                          <div class="container is-max-desktop">                                             <div class="columns is-centered">                                                  <div class="column has-text-centered">                                     
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
         <div class="video-container">
           <video id="promo-video" autoplay loop muted playsinline width="640" height="360">
             <source src="./videos/vla_promo.mp4" type="video/mp4">
@@ -276,10 +279,11 @@
             <div class="video-progress-fill" id="progress-fill"></div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 </section>
+
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
@@ -297,7 +301,6 @@
   </div>
 </section>
 
-
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -305,7 +308,7 @@
          <img src="./images/method_2.png" alt="Method Overview Diagram">
       </div>
     </div>
-      <div class="columns is-centered">
+    <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Method</h2>
         <div class="content has-text-justified">
@@ -321,7 +324,6 @@
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Key Findings & Results</h2>
-
 
     <!-- Generalization Three Plots -->
     <div class="columns is-centered is-vcentered">
@@ -346,7 +348,6 @@
         </p>
       </div>
     </div>
-
 
     <!-- Real World and VQA Performance -->
     <div class="columns is-centered is-vcentered">
@@ -435,7 +436,6 @@
       </div>
     </div>
     <!--/ Enhanced Demonstration Carousel -->
-
   </div>
 </section>
 
@@ -601,7 +601,7 @@ class DemoCarousel {
   }
 }
 
-// Initialize carousel when DOM is loaded
+// Initialize scripts when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new DemoCarousel();
   
@@ -613,16 +613,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (video && progressBar && progressFill) {
     // Update progress bar as video plays
     video.addEventListener('timeupdate', () => {
-      const progress = (video.currentTime / video.duration) * 100;
-      progressFill.style.width = progress + '%';
+      if (!isNaN(video.duration)) {
+        const progress = (video.currentTime / video.duration) * 100;
+        progressFill.style.width = progress + '%';
+      }
     });
 
     // Seek video when clicking on progress bar
     progressBar.addEventListener('click', (e) => {
-      const rect = progressBar.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const percentage = clickX / rect.width;
-      video.currentTime = percentage * video.duration;
+      if (!isNaN(video.duration)) {
+        const rect = progressBar.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percentage = clickX / rect.width;
+        video.currentTime = percentage * video.duration;
+      }
     });
   }
 });
