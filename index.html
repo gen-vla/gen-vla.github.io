@@ -8,37 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Enhancing Generalization in Vision-Language-Action Models</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
-
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
   <style>
     /* Video container with progress bar */
@@ -77,16 +52,18 @@
       position: relative;
       overflow: hidden;
       margin: 2rem 0;
+      width: 100%;
     }
 
     .carousel-container {
       display: flex;
       transition: transform 0.5s ease;
       gap: 1rem;
+      width: 100%;
     }
 
     .carousel-item {
-      flex: 0 0 48%;
+      flex: 0 0 calc(50% - 0.5rem);
       padding: 1rem;
       background: #f8f9fa;
       border-radius: 12px;
@@ -169,6 +146,15 @@
 
     .carousel-dot:hover {
       background: #2366d1;
+    }
+
+    .results-image-container {
+      margin-bottom: 2rem;
+    }
+
+    .results-image-container img {
+      max-width: 100%;
+      height: auto;
     }
 
     @media (max-width: 768px) {
@@ -303,14 +289,14 @@
 
 <section class="section">
   <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
     <div class="columns is-centered">
       <div class="column has-text-centered">
-         <img src="./images/method_2.png" alt="Method Overview Diagram">
+         <img src="./images/method_2.png" alt="Method Overview Diagram" style="max-width: 100%;">
       </div>
     </div>
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Method</h2>
         <div class="content has-text-justified">
           <p>
             Our framework is built on three key ideas to prevent representation degradation. <strong>(1) Partially-Frozen Visual Encoders:</strong> We use two encoders—one frozen to preserve robust, pretrained VLM features and one trainable to adapt to the specific robot task. <strong>(2) String-Based Action Tokenizer:</strong> We represent continuous robot actions as strings, unifying them with the text-based pretraining of the language model. <strong>(3) Co-Training Strategy:</strong> We mix robot demonstration data with vision-language datasets that emphasize spatial reasoning, preventing the model from overfitting to robot-specific data and enhancing its generalization capabilities.
@@ -328,15 +314,15 @@
     <!-- Generalization Three Plots -->
     <div class="columns is-centered is-vcentered">
         <div class="column is-one-third has-text-centered">
-            <img src="./images/vis_matching.png" alt="Bar chart for Visual Matching">
+            <img src="./images/vis_matching.png" alt="Bar chart for Visual Matching" style="max-width: 100%;">
             <p class="is-size-7"><em>SimplerEnv Visual Matching</em></p>
         </div>
         <div class="column is-one-third has-text-centered">
-            <img src="./images/var_agg_perf.png" alt="Bar chart for Visual Variant Aggregation">
+            <img src="./images/var_agg_perf.png" alt="Bar chart for Visual Variant Aggregation" style="max-width: 100%;">
             <p class="is-size-7"><em>SimplerEnv Variant Aggregation (OOD)</em></p>
         </div>
         <div class="column is-one-third has-text-centered">
-            <img src="./images/text_ag.png" alt="Bar chart for Language Robustness">
+            <img src="./images/text_ag.png" alt="Bar chart for Language Robustness" style="max-width: 100%;">
             <p class="is-size-7"><em>Language Robustness</em></p>
         </div>
     </div>
@@ -350,19 +336,23 @@
     </div>
 
     <!-- Real World and VQA Performance -->
-    <div class="columns is-centered is-vcentered">
-      <div class="column is-6">
-        <img src="./images/real_perf.png" alt="Qualitative results of robot picking knife and carrot">
-        <p class="is-size-7 has-text-centered"><em>Real World Performance.</em></p>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Robust Real-World Performance and Retained Reasoning Capabilities</h3>
       </div>
-      <div class="column is-6">
-        <img src="./images/vlm_benchmark_results.png" alt="Radar chart of VQA benchmark performance">
-        <p class="is-size-7 has-text-centered"><em>VQA Benchmark Performance.</em></p>
+    </div>
+    <div class="columns is-centered is-vcentered">
+      <div class="column is-6 has-text-centered">
+        <img src="./images/real_perf.png" alt="Qualitative results of robot picking knife and carrot" style="max-width: 100%;">
+        <p class="is-size-7"><em>Real World Performance.</em></p>
+      </div>
+      <div class="column is-6 has-text-centered">
+        <img src="./images/vlm_benchmark_results.png" alt="Radar chart of VQA benchmark performance" style="max-width: 100%;">
+        <p class="is-size-7"><em>VQA Benchmark Performance.</em></p>
       </div>
     </div>
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h3 class="title is-4 has-text-centered">Robust Real-World Performance and Retained Reasoning Capabilities</h3>
         <p class="has-text-justified">
           In real-world tests, our models consistently outperform baselines, especially in the presence of distracting objects. While baseline models often get confused by distractors (e.g., picking a carrot instead of a knife), our model demonstrates a more robust understanding of the task, successfully completing the instructed action. Additionally, standard VLA finetuning harms the model's ability to perform general visual reasoning. Our training recipe allows the model to retain significantly higher performance on standard VQA benchmarks (solid lines vs. dashed lines), demonstrating that it doesn't just learn robotic actions but also preserves its core reasoning abilities.
         </p>
@@ -371,6 +361,11 @@
 
     <!-- t-SNE Visualization -->
     <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4 has-text-centered">Preserving Semantic Structure in Visual Representations</h3>
+      </div>
+    </div>
+    <div class="columns is-centered">
       <div class="column has-text-centered">
         <img src="./images/tsne_new.png" alt="t-SNE visualizations comparing feature representations" style="max-width: 85%;">
         <p class="is-size-7"><em>t-SNE visualizations of vision encoder features on CIFAR-10.</em></p>
@@ -378,7 +373,6 @@
     </div>
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h3 class="title is-4 has-text-centered">Preserving Semantic Structure in Visual Representations</h3>
         <p class="has-text-justified">
           We visualize how different training approaches affect the learned visual representations using t-SNE on CIFAR-10. Comparing (i) the original visual backbone from the VLM before VLA training, (ii) after direct VLA fine-tuning on robot data, and (iii) after applying our approaches, we observe that our method yields noticeably tighter and more well-separated class clusters. The numbers in the visualization indicate linear-probe classification performance on CIFAR-10 using the corresponding features. For both OpenVLA and π0 models, our approach leads to better linear-probe performance, indicating superior preservation of semantic structures in pretrained visual representations. This demonstrates that our framework maintains the rich representational capacity of the original vision-language models while adapting them for robotic tasks.
         </p>
@@ -390,9 +384,9 @@
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Enhanced Demonstration Carousel -->
+    <h2 class="title is-3 has-text-centered">Demonstrations</h2>
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Demonstrations</h2>
         <div class="content has-text-centered">
           <p>
             Here we showcase sample demonstrations of our model's performance in various scenarios, highlighting its generalization capabilities.
@@ -478,7 +472,7 @@
 class DemoCarousel {
   constructor() {
     this.container = document.getElementById('carousel-container');
-    if (!this.container) return; // Exit if carousel doesn't exist
+    if (!this.container) return;
     this.prevBtn = document.getElementById('prev-btn');
     this.nextBtn = document.getElementById('next-btn');
     this.indicators = document.getElementById('carousel-indicators');
@@ -517,7 +511,6 @@ class DemoCarousel {
     this.prevBtn.addEventListener('click', () => this.prevPage());
     this.nextBtn.addEventListener('click', () => this.nextPage());
 
-    // Handle window resize
     window.addEventListener('resize', () => {
       this.updateItemsPerPage();
       this.currentIndex = Math.min(this.currentIndex, this.totalPages - 1);
@@ -526,7 +519,6 @@ class DemoCarousel {
       this.updateButtons();
     });
 
-    // Touch/swipe support
     let startX = 0;
     let startY = 0;
     let currentX = 0;
@@ -546,7 +538,6 @@ class DemoCarousel {
       const diffX = startX - currentX;
       const diffY = startY - currentY;
 
-      // Only register horizontal swipes
       if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
         if (diffX > 0) {
           this.nextPage();
@@ -558,11 +549,9 @@ class DemoCarousel {
   }
 
   updateCarousel() {
-    const itemWidthPercentage = 100 / this.items.length;
-    const containerWidthPercentage = itemWidthPercentage * this.itemsPerPage;
-    const offset = this.currentIndex * (100 / this.totalPages);
-
-    this.container.style.transform = `translateX(-${offset}%)`;
+    // Calculate how much to move based on number of items per page
+    const movePercentage = this.currentIndex * 100;
+    this.container.style.transform = `translateX(-${movePercentage}%)`;
 
     const dots = this.indicators.querySelectorAll('.carousel-dot');
     dots.forEach((dot, index) => {
@@ -572,24 +561,27 @@ class DemoCarousel {
 
   updateButtons() {
     if (!this.prevBtn || !this.nextBtn) return;
-    this.prevBtn.disabled = this.currentIndex === 0;
-    this.nextBtn.disabled = this.currentIndex === this.totalPages - 1;
+    // Always enable both buttons for infinite loop
+    this.prevBtn.disabled = false;
+    this.nextBtn.disabled = false;
   }
 
   prevPage() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.updateCarousel();
-      this.updateButtons();
+    this.currentIndex--;
+    if (this.currentIndex < 0) {
+      this.currentIndex = this.totalPages - 1; // Loop to last page
     }
+    this.updateCarousel();
+    this.updateButtons();
   }
 
   nextPage() {
-    if (this.currentIndex < this.totalPages - 1) {
-      this.currentIndex++;
-      this.updateCarousel();
-      this.updateButtons();
+    this.currentIndex++;
+    if (this.currentIndex >= this.totalPages) {
+      this.currentIndex = 0; // Loop back to first page
     }
+    this.updateCarousel();
+    this.updateButtons();
   }
 
   goToPage(index) {
@@ -601,17 +593,14 @@ class DemoCarousel {
   }
 }
 
-// Initialize scripts when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new DemoCarousel();
   
-  // Video progress bar functionality
   const video = document.getElementById('promo-video');
   const progressBar = document.getElementById('progress-bar');
   const progressFill = document.getElementById('progress-fill');
 
   if (video && progressBar && progressFill) {
-    // Update progress bar as video plays
     video.addEventListener('timeupdate', () => {
       if (!isNaN(video.duration)) {
         const progress = (video.currentTime / video.duration) * 100;
@@ -619,7 +608,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Seek video when clicking on progress bar
     progressBar.addEventListener('click', (e) => {
       if (!isNaN(video.duration)) {
         const rect = progressBar.getBoundingClientRect();
