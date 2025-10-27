@@ -16,38 +16,89 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
   <style>
-    /* Video container with progress bar */
+    /* Video container with improved progress bar */
     .video-container {
       position: relative;
       display: inline-block;
       width: 640px;
       max-width: 100%;
+      aspect-ratio: 16 / 9;
     }
 
     .video-container video {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
     }
 
-    .video-progress-bar {
+    .video-controls {
       position: absolute;
       bottom: 0;
       left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      padding: 1rem 0.5rem 0.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .video-container:hover .video-controls {
+      opacity: 1;
+    }
+
+    .video-progress-bar {
+      position: relative;
       width: 100%;
-      height: 4px;
+      height: 8px;
       background-color: rgba(255, 255, 255, 0.3);
       cursor: pointer;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
     }
 
     .video-progress-fill {
+      position: absolute;
       height: 100%;
       background-color: #3273dc;
       width: 0%;
-      transition: width 0.1s linear;
+      border-radius: 4px;
+      pointer-events: none;
     }
 
-    /* Enhanced carousel styles */
+    .video-progress-handle {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      cursor: grab;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .video-progress-bar:hover .video-progress-handle {
+      opacity: 1;
+    }
+
+    .video-progress-handle.dragging {
+      cursor: grabbing;
+      opacity: 1;
+    }
+
+    .video-time {
+      color: white;
+      font-size: 0.85rem;
+      text-align: center;
+      font-family: monospace;
+    }
+
+    /* Enhanced carousel styles with fixed aspect ratio */
     .demo-carousel {
       position: relative;
       overflow: hidden;
@@ -76,12 +127,20 @@
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
     }
 
-    .carousel-item img {
+    .carousel-item-media {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
       border-radius: 8px;
       margin-bottom: 1rem;
+      background: #000;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .carousel-item p {
@@ -148,6 +207,7 @@
       background: #2366d1;
     }
 
+    /* Fixed aspect ratio for result images */
     .results-image-container {
       margin-bottom: 2rem;
     }
@@ -155,6 +215,23 @@
     .results-image-container img {
       max-width: 100%;
       height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .fixed-aspect-image {
+      width: 100%;
+      aspect-ratio: auto;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fixed-aspect-image img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
     }
 
     @media (max-width: 768px) {
@@ -162,8 +239,8 @@
         flex: 0 0 100%;
       }
 
-      .carousel-item img {
-        height: 150px;
+      .video-container {
+        width: 100%;
       }
     }
   </style>
@@ -204,7 +281,6 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2509.11417"
                    class="external-link button is-normal is-rounded is-dark">
@@ -214,7 +290,6 @@
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Video Link. -->
               <span class="link-block">
                 <a href="https://gen-vla.github.io"
                    class="external-link button is-normal is-rounded is-dark">
@@ -224,7 +299,6 @@
                   <span>Project Page</span>
                 </a>
               </span>
-              <!-- Code Link. -->
               <span class="link-block">
                 <a href="https://github.com/akshaygopalkr/vla-plus"
                    class="external-link button is-normal is-rounded is-dark">
@@ -257,12 +331,16 @@
     <div class="columns is-centered">
       <div class="column has-text-centered">
         <div class="video-container">
-          <video id="promo-video" autoplay loop muted playsinline width="640" height="360">
+          <video id="promo-video" autoplay loop muted playsinline>
             <source src="./videos/vla_promo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <div class="video-progress-bar" id="progress-bar">
-            <div class="video-progress-fill" id="progress-fill"></div>
+          <div class="video-controls">
+            <div class="video-progress-bar" id="progress-bar">
+              <div class="video-progress-fill" id="progress-fill"></div>
+              <div class="video-progress-handle" id="progress-handle"></div>
+            </div>
+            <div class="video-time" id="video-time">0:00 / 0:00</div>
           </div>
         </div>
       </div>
@@ -272,7 +350,6 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
@@ -283,7 +360,6 @@
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
   </div>
 </section>
 
@@ -292,7 +368,9 @@
     <h2 class="title is-3 has-text-centered">Method</h2>
     <div class="columns is-centered">
       <div class="column has-text-centered">
-         <img src="./images/method_2.png" alt="Method Overview Diagram" style="max-width: 100%;">
+        <div class="fixed-aspect-image">
+          <img src="./images/method_2.png" alt="Method Overview Diagram">
+        </div>
       </div>
     </div>
     <div class="columns is-centered">
@@ -311,18 +389,23 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Key Findings & Results</h2>
 
-    <!-- Generalization Three Plots -->
     <div class="columns is-centered is-vcentered">
         <div class="column is-one-third has-text-centered">
-            <img src="./images/vis_matching.png" alt="Bar chart for Visual Matching" style="max-width: 100%;">
+            <div class="fixed-aspect-image">
+              <img src="./images/vis_matching.png" alt="Bar chart for Visual Matching">
+            </div>
             <p class="is-size-7"><em>SimplerEnv Visual Matching</em></p>
         </div>
         <div class="column is-one-third has-text-centered">
-            <img src="./images/var_agg_perf.png" alt="Bar chart for Visual Variant Aggregation" style="max-width: 100%;">
+            <div class="fixed-aspect-image">
+              <img src="./images/var_agg_perf.png" alt="Bar chart for Visual Variant Aggregation">
+            </div>
             <p class="is-size-7"><em>SimplerEnv Variant Aggregation (OOD)</em></p>
         </div>
         <div class="column is-one-third has-text-centered">
-            <img src="./images/text_ag.png" alt="Bar chart for Language Robustness" style="max-width: 100%;">
+            <div class="fixed-aspect-image">
+              <img src="./images/text_ag.png" alt="Bar chart for Language Robustness">
+            </div>
             <p class="is-size-7"><em>Language Robustness</em></p>
         </div>
     </div>
@@ -335,7 +418,6 @@
       </div>
     </div>
 
-    <!-- Real World and VQA Performance -->
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h3 class="title is-4 has-text-centered">Robust Real-World Performance and Retained Reasoning Capabilities</h3>
@@ -343,11 +425,15 @@
     </div>
     <div class="columns is-centered is-vcentered">
       <div class="column is-6 has-text-centered">
-        <img src="./images/real_perf.png" alt="Qualitative results of robot picking knife and carrot" style="max-width: 100%;">
+        <div class="fixed-aspect-image">
+          <img src="./images/real_perf.png" alt="Qualitative results of robot picking knife and carrot">
+        </div>
         <p class="is-size-7"><em>Real World Performance.</em></p>
       </div>
       <div class="column is-6 has-text-centered">
-        <img src="./images/vlm_benchmark_results.png" alt="Radar chart of VQA benchmark performance" style="max-width: 100%;">
+        <div class="fixed-aspect-image">
+          <img src="./images/vlm_benchmark_results.png" alt="Radar chart of VQA benchmark performance">
+        </div>
         <p class="is-size-7"><em>VQA Benchmark Performance.</em></p>
       </div>
     </div>
@@ -359,7 +445,6 @@
       </div>
     </div>
 
-    <!-- t-SNE Visualization -->
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h3 class="title is-4 has-text-centered">Preserving Semantic Structure in Visual Representations</h3>
@@ -367,7 +452,9 @@
     </div>
     <div class="columns is-centered">
       <div class="column has-text-centered">
-        <img src="./images/tsne_new.png" alt="t-SNE visualizations comparing feature representations" style="max-width: 85%;">
+        <div class="fixed-aspect-image">
+          <img src="./images/tsne_new.png" alt="t-SNE visualizations comparing feature representations" style="max-width: 85%;">
+        </div>
         <p class="is-size-7"><em>t-SNE visualizations of vision encoder features on CIFAR-10.</em></p>
       </div>
     </div>
@@ -383,7 +470,6 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Enhanced Demonstration Carousel -->
     <h2 class="title is-3 has-text-centered">Demonstrations</h2>
     <div class="columns is-centered">
       <div class="column is-full-width">
@@ -396,27 +482,39 @@
         <div class="demo-carousel">
           <div class="carousel-container" id="carousel-container">
             <div class="carousel-item">
-              <img src="./videos/video_1.gif" alt="Demonstration for picking up a carrot and placing it on plate">
+              <div class="carousel-item-media">
+                <img src="./videos/video_1.gif" alt="Demonstration for picking up a carrot and placing it on plate">
+              </div>
               <p>Task 1: Put carrot on plate.</p>
             </div>
             <div class="carousel-item">
-              <img src="./videos/video_2.gif" alt="Demonstration for putting knife on cloth">
+              <div class="carousel-item-media">
+                <img src="./videos/video_2.gif" alt="Demonstration for putting knife on cloth">
+              </div>
               <p>Task 2: Put knife on cloth.</p>
             </div>
             <div class="carousel-item">
-              <img src="./videos/video_3.gif" alt="Demonstration for placing carrot on a plate">
+              <div class="carousel-item-media">
+                <img src="./videos/video_3.gif" alt="Demonstration for placing carrot on a plate">
+              </div>
               <p>Task 3: Place the carrot on the plate.</p>
             </div>
             <div class="carousel-item">
-              <img src="./videos/video_6.gif" alt="Demonstration for placing object on target">
+              <div class="carousel-item-media">
+                <img src="./videos/video_6.gif" alt="Demonstration for placing object on target">
+              </div>
               <p>Task 4: Place carrot on plate.</p>
             </div>
             <div class="carousel-item">
-              <img src="./videos/video_7.gif" alt="Additional demonstration">
+              <div class="carousel-item-media">
+                <img src="./videos/video_7.gif" alt="Additional demonstration">
+              </div>
               <p>Task 5: Put carrot on plate.</p>
             </div>
             <div class="carousel-item">
-              <img src="./videos/video_5.gif" alt="Additional demonstration">
+              <div class="carousel-item-media">
+                <img src="./videos/video_5.gif" alt="Additional demonstration">
+              </div>
               <p>Task 6: Put carrot on yellow plate.</p>
             </div>
           </div>
@@ -429,7 +527,6 @@
         </div>
       </div>
     </div>
-    <!--/ Enhanced Demonstration Carousel -->
   </div>
 </section>
 
@@ -469,6 +566,107 @@
 </footer>
 
 <script>
+// Enhanced Video Player with Draggable Slider
+class VideoPlayer {
+  constructor() {
+    this.video = document.getElementById('promo-video');
+    this.progressBar = document.getElementById('progress-bar');
+    this.progressFill = document.getElementById('progress-fill');
+    this.progressHandle = document.getElementById('progress-handle');
+    this.videoTime = document.getElementById('video-time');
+    
+    if (!this.video || !this.progressBar) return;
+    
+    this.isDragging = false;
+    this.init();
+  }
+
+  init() {
+    this.video.addEventListener('timeupdate', () => this.updateProgress());
+    this.video.addEventListener('loadedmetadata', () => this.updateTimeDisplay());
+    
+    this.progressBar.addEventListener('mousedown', (e) => this.startDrag(e));
+    this.progressBar.addEventListener('click', (e) => this.seek(e));
+    
+    document.addEventListener('mousemove', (e) => this.drag(e));
+    document.addEventListener('mouseup', () => this.stopDrag());
+    
+    this.progressBar.addEventListener('touchstart', (e) => this.startDrag(e.touches[0]), { passive: false });
+    document.addEventListener('touchmove', (e) => this.drag(e.touches[0]), { passive: false });
+    document.addEventListener('touchend', () => this.stopDrag());
+  }
+
+  formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  updateTimeDisplay() {
+    const current = this.formatTime(this.video.currentTime);
+    const duration = this.formatTime(this.video.duration);
+    this.videoTime.textContent = `${current} / ${duration}`;
+  }
+
+  updateProgress() {
+    if (!this.isDragging && !isNaN(this.video.duration)) {
+      const progress = (this.video.currentTime / this.video.duration) * 100;
+      this.progressFill.style.width = progress + '%';
+      this.progressHandle.style.left = progress + '%';
+      this.updateTimeDisplay();
+    }
+  }
+
+  startDrag(e) {
+    e.preventDefault();
+    this.isDragging = true;
+    this.progressHandle.classList.add('dragging');
+    this.video.pause();
+    this.updatePosition(e);
+  }
+
+  drag(e) {
+    if (this.isDragging) {
+      e.preventDefault();
+      this.updatePosition(e);
+    }
+  }
+
+  stopDrag() {
+    if (this.isDragging) {
+      this.isDragging = false;
+      this.progressHandle.classList.remove('dragging');
+      this.video.play();
+    }
+  }
+
+  updatePosition(e) {
+    const rect = this.progressBar.getBoundingClientRect();
+    const clientX = e.clientX || e.pageX;
+    let clickX = clientX - rect.left;
+    clickX = Math.max(0, Math.min(clickX, rect.width));
+    const percentage = clickX / rect.width;
+    
+    if (!isNaN(this.video.duration)) {
+      this.video.currentTime = percentage * this.video.duration;
+      this.progressFill.style.width = (percentage * 100) + '%';
+      this.progressHandle.style.left = (percentage * 100) + '%';
+      this.updateTimeDisplay();
+    }
+  }
+
+  seek(e) {
+    if (!this.isDragging && !isNaN(this.video.duration)) {
+      const rect = this.progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percentage = clickX / rect.width;
+      this.video.currentTime = percentage * this.video.duration;
+    }
+  }
+}
+
+// Carousel Class
 class DemoCarousel {
   constructor() {
     this.container = document.getElementById('carousel-container');
@@ -549,7 +747,6 @@ class DemoCarousel {
   }
 
   updateCarousel() {
-    // Calculate how much to move based on number of items per page
     const movePercentage = this.currentIndex * 100;
     this.container.style.transform = `translateX(-${movePercentage}%)`;
 
@@ -561,7 +758,6 @@ class DemoCarousel {
 
   updateButtons() {
     if (!this.prevBtn || !this.nextBtn) return;
-    // Always enable both buttons for infinite loop
     this.prevBtn.disabled = false;
     this.nextBtn.disabled = false;
   }
@@ -569,7 +765,7 @@ class DemoCarousel {
   prevPage() {
     this.currentIndex--;
     if (this.currentIndex < 0) {
-      this.currentIndex = this.totalPages - 1; // Loop to last page
+      this.currentIndex = this.totalPages - 1;
     }
     this.updateCarousel();
     this.updateButtons();
@@ -578,7 +774,7 @@ class DemoCarousel {
   nextPage() {
     this.currentIndex++;
     if (this.currentIndex >= this.totalPages) {
-      this.currentIndex = 0; // Loop back to first page
+      this.currentIndex = 0;
     }
     this.updateCarousel();
     this.updateButtons();
@@ -594,29 +790,8 @@ class DemoCarousel {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  new VideoPlayer();
   new DemoCarousel();
-  
-  const video = document.getElementById('promo-video');
-  const progressBar = document.getElementById('progress-bar');
-  const progressFill = document.getElementById('progress-fill');
-
-  if (video && progressBar && progressFill) {
-    video.addEventListener('timeupdate', () => {
-      if (!isNaN(video.duration)) {
-        const progress = (video.currentTime / video.duration) * 100;
-        progressFill.style.width = progress + '%';
-      }
-    });
-
-    progressBar.addEventListener('click', (e) => {
-      if (!isNaN(video.duration)) {
-        const rect = progressBar.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const percentage = clickX / rect.width;
-        video.currentTime = percentage * video.duration;
-      }
-    });
-  }
 });
 </script>
 </body>
