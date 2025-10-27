@@ -23,6 +23,7 @@
       width: 640px;
       max-width: 100%;
       aspect-ratio: 16 / 9;
+      cursor: pointer;
     }
 
     .video-container video {
@@ -91,11 +92,37 @@
       opacity: 1;
     }
 
+    .video-controls-bottom {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .play-pause-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .play-pause-btn:hover {
+      transform: scale(1.1);
+    }
+
     .video-time {
       color: white;
       font-size: 0.85rem;
-      text-align: center;
       font-family: monospace;
+      flex: 1;
+      text-align: right;
     }
 
     /* Enhanced carousel styles with fixed aspect ratio */
@@ -291,15 +318,6 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://gen-vla.github.io"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-video"></i>
-                  </span>
-                  <span>Project Page</span>
-                </a>
-              </span>
-              <span class="link-block">
                 <a href="https://github.com/akshaygopalkr/vla-plus"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -330,7 +348,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column has-text-centered">
-        <div class="video-container">
+        <div class="video-container" id="video-wrapper">
           <video id="promo-video" autoplay loop muted playsinline>
             <source src="./videos/vla_promo.mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -340,7 +358,12 @@
               <div class="video-progress-fill" id="progress-fill"></div>
               <div class="video-progress-handle" id="progress-handle"></div>
             </div>
-            <div class="video-time" id="video-time">0:00 / 0:00</div>
+            <div class="video-controls-bottom">
+              <button class="play-pause-btn" id="play-pause-btn">
+                <i class="fas fa-pause"></i>
+              </button>
+              <div class="video-time" id="video-time">0:00 / 0:00</div>
+            </div>
           </div>
         </div>
       </div>
@@ -570,10 +593,12 @@
 class VideoPlayer {
   constructor() {
     this.video = document.getElementById('promo-video');
+    this.videoWrapper = document.getElementById('video-wrapper');
     this.progressBar = document.getElementById('progress-bar');
     this.progressFill = document.getElementById('progress-fill');
     this.progressHandle = document.getElementById('progress-handle');
     this.videoTime = document.getElementById('video-time');
+    this.playPauseBtn = document.getElementById('play-pause-btn');
     
     if (!this.video || !this.progressBar) return;
     
@@ -594,6 +619,40 @@ class VideoPlayer {
     this.progressBar.addEventListener('touchstart', (e) => this.startDrag(e.touches[0]), { passive: false });
     document.addEventListener('touchmove', (e) => this.drag(e.touches[0]), { passive: false });
     document.addEventListener('touchend', () => this.stopDrag());
+
+    // Play/pause button click
+    this.playPauseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.togglePlayPause();
+    });
+
+    // Click video to play/pause
+    this.videoWrapper.addEventListener('click', (e) => {
+      if (e.target === this.video || e.target === this.videoWrapper) {
+        this.togglePlayPause();
+      }
+    });
+
+    // Update button icon when video play state changes
+    this.video.addEventListener('play', () => this.updatePlayPauseIcon());
+    this.video.addEventListener('pause', () => this.updatePlayPauseIcon());
+  }
+
+  togglePlayPause() {
+    if (this.video.paused) {
+      this.video.play();
+    } else {
+      this.video.pause();
+    }
+  }
+
+  updatePlayPauseIcon() {
+    const icon = this.playPauseBtn.querySelector('i');
+    if (this.video.paused) {
+      icon.className = 'fas fa-play';
+    } else {
+      icon.className = 'fas fa-pause';
+    }
   }
 
   formatTime(seconds) {
